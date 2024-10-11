@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>Calorie Scale App</title> 
+  <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            transition: background-color 0.5s ease;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            color: #FF5722;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #FF5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #E64A19;
+        }
+
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #FF5722;
+        }
+
+        #health-tips {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-left: 5px solid #FF5722;
+        }
+
+        marquee {
+            font-size: 1.5em;
+            color: #FF6F61;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style> 
+ </head> 
+ <body> 
+  <div class="container"> 
+   <h1>Calorie Scale App</h1> <label for="food-select">Select a Food Item:</label> <select id="food-select"> <option value="Apple">Apple</option> <option value="Banana">Banana</option> <option value="Grapes">Grapes</option> <option value="Carrot">Carrot</option> <option value="Broccoli">Broccoli</option> <option value="Tomato">Tomato</option> <option value="Potato">Potato</option> <option value="Spinach">Spinach</option> <option value="Orange">Orange</option> <option value="Cucumber">Cucumber</option> </select> <label for="weight-input">Enter weight in grams:</label> 
+   <input type="number" id="weight-input" placeholder="Weight (g)"> <button id="calculate-btn">Calculate</button> 
+   <div id="results"></div> 
+   <div id="health-tips"></div> <marquee behavior="scroll" direction="left">
+     Health Tips: "Stay hydrated!" | "Eat a variety of foods!" 
+   </marquee> 
+   <footer> 
+    <p>By Class 9 students of GSS Jain Gurukul</p> 
+   </footer> 
+  </div> 
+  <script>
+        // Array of light, attractive colors
+        const colors = [
+            "#FFB3BA", "#FFDFBA", "#FFFFBA", "#BAFFB3", "#BAE1FF",
+            "#FFBAF0", "#FFABAB", "#FFC3A0", "#FF677D", "#D4A5A5",
+            "#392F5A", "#5C3D7A", "#6B4226", "#D9BF77", "#E1C6E3",
+            "#F0E6D2", "#F3F9A2", "#B3D9FF", "#D9E4FF", "#FFB5D8"
+        ];
+
+        let index = 0;
+
+        function changeBackgroundColor() {
+            document.body.style.backgroundColor = colors[index];
+            index = (index + 1) % colors.length; // Loop through colors
+        }
+
+        setInterval(changeBackgroundColor, 3000); // Change color every 3 seconds
+
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            const foodSelect = document.getElementById('food-select');
+            const weightInput = document.getElementById('weight-input');
+            const resultsDiv = document.getElementById('results');
+            const healthTipsDiv = document.getElementById('health-tips');
+
+            const foodItem = foodSelect.value;
+            const weight = parseFloat(weightInput.value);
+            let caloriesPer100g, protein, carbs, fats, recommendedAmount;
+
+            switch (foodItem) {
+                case "Apple":
+                    caloriesPer100g = 52;
+                    protein = 0.3;
+                    carbs = 14.0;
+                    fats = 0.2;
+                    recommendedAmount = 150;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Apples</h2><p>Apples are rich in fiber and vitamin C. They may help lower blood pressure and reduce the risk of heart disease.</p>`;
+                    break;
+                case "Banana":
+                    caloriesPer100g = 89;
+                    protein = 1.1;
+                    carbs = 23.0;
+                    fats = 0.3;
+                    recommendedAmount = 150;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Bananas</h2><p>Bananas are high in potassium, which is good for heart health. They provide quick energy and are a great snack before exercise.</p>`;
+                    break;
+                case "Grapes":
+                    caloriesPer100g = 69;
+                    protein = 0.7;
+                    carbs = 18.0;
+                    fats = 0.2;
+                    recommendedAmount = 150;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Grapes</h2><p>Grapes are rich in antioxidants and may promote heart health. They are hydrating and great for snacking.</p>`;
+                    break;
+                case "Carrot":
+                    caloriesPer100g = 41;
+                    protein = 0.9;
+                    carbs = 10.0;
+                    fats = 0.2;
+                    recommendedAmount = 100;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Carrots</h2><p>Carrots are an excellent source of vitamin A and promote good eyesight. They can be eaten raw or cooked.</p>`;
+                    break;
+                case "Broccoli":
+                    caloriesPer100g = 34;
+                    protein = 2.8;
+                    carbs = 7.0;
+                    fats = 0.4;
+                    recommendedAmount = 100;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Broccoli</h2><p>Broccoli is packed with vitamins K and C, and it contains antioxidants that may reduce inflammation.</p>`;
+                    break;
+                case "Tomato":
+                    caloriesPer100g = 18;
+                    protein = 0.9;
+                    carbs = 3.9;
+                    fats = 0.2;
+                    recommendedAmount = 100;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Tomatoes</h2><p>Tomatoes are high in lycopene and vitamin C, and they help protect against heart disease and cancer.</p>`;
+                    break;
+                case "Potato":
+                    caloriesPer100g = 77;
+                    protein = 2.0;
+                    carbs = 17.0;
+                    fats = 0.1;
+                    recommendedAmount = 150;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Potatoes</h2><p>Potatoes are a good source of potassium and vitamin C. They provide long-lasting energy.</p>`;
+                    break;
+                case "Spinach":
+                    caloriesPer100g = 23;
+                    protein = 2.9;
+                    carbs = 3.6;
+                    fats = 0.4;
+                    recommendedAmount = 100;
+                    healthTipsDiv.innerHTML = `<h2>Health Tips for Spinach</h2><p>Spinach is rich in iron and vitamins A, C, and K. It supports bone health and immune function.</p>`;
+                    break;
+                </script> no
+ </body>
+</html>
